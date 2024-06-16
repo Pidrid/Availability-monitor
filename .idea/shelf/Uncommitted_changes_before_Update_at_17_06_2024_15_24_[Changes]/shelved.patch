@@ -1,0 +1,323 @@
+Index: Manager.py
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/Manager.py b/Manager.py
+new file mode 100644
+--- /dev/null	(date 1718564622469)
++++ b/Manager.py	(date 1718564622469)
+@@ -0,0 +1,69 @@
++import csv
++from threading import Timer
++from plyer import notification
++import smtplib
++from email.mime.multipart import MIMEMultipart
++from email.mime.text import MIMEText
++
++from Product import Produkt
++
++
++class Manager:
++    def __init__(self):
++        self.products = []
++        self.load_products_from_csv()
++
++    def add_product(self, product: Produkt):
++        self.products.append(product)
++        self.save_products_to_csv()
++
++    def load_products_from_csv(self):
++        try:
++            with open('products.csv', mode='r') as file:
++                reader = csv.reader(file)
++                for row in reader:
++                    self.products.append(Produkt.from_csv_row(row))
++        except FileNotFoundError:
++            pass
++
++    def save_products_to_csv(self):
++        with open('products.csv', mode='w') as file:
++            writer = csv.writer(file)
++            for product in self.products:
++                writer.writerow(product.to_csv_row())
++
++    def check_product(self, product: Produkt):
++        old_price = product.price
++        product.update_price_and_availability()
++        if product.is_available:
++            if product.price < old_price:
++                self.notify_user(product, 'Cena produktu spadła!')
++        self.save_products_to_csv()
++
++    def notify_user(self, product: Produkt, message: str):
++        if product.system_notify:
++            notification.notify(
++                title=f'Produkt: {product.name}',
++                message=message,
++                timeout=10
++            )
++        if product.email_notify:
++            self.send_email(product.email, f'Produkt: {product.name}', message)
++
++    def send_email(self, to_address: str, subject: str, body: str):
++        from_address = "your_email@example.com"
++        msg = MIMEMultipart()
++        msg['From'] = from_address
++        msg['To'] = to_address
++        msg['Subject'] = subject
++        msg.attach(MIMEText(body, 'plain'))
++        server = smtplib.SMTP('smtp.example.com', 587)
++        server.starttls()
++        server.login(from_address, "your_password")
++        text = msg.as_string()
++        server.sendmail(from_address, to_address, text)
++        server.quit()
++
++    def start_monitoring(self, interval: int):
++        for product in self.products:
++            Timer(interval, self.check_product, [product]).start()
+\ No newline at end of file
+Index: .idea/inspectionProfiles/Project_Default.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/.idea/inspectionProfiles/Project_Default.xml b/.idea/inspectionProfiles/Project_Default.xml
+new file mode 100644
+--- /dev/null	(date 1718198734313)
++++ b/.idea/inspectionProfiles/Project_Default.xml	(date 1718198734313)
+@@ -0,0 +1,20 @@
++<component name="InspectionProjectProfileManager">
++  <profile version="1.0">
++    <option name="myName" value="Project Default" />
++    <inspection_tool class="DuplicatedCode" enabled="false" level="WEAK WARNING" enabled_by_default="false" />
++    <inspection_tool class="PyPep8NamingInspection" enabled="true" level="WEAK WARNING" enabled_by_default="true">
++      <option name="ignoredErrors">
++        <list>
++          <option value="N803" />
++        </list>
++      </option>
++    </inspection_tool>
++    <inspection_tool class="PyUnresolvedReferencesInspection" enabled="true" level="WARNING" enabled_by_default="true">
++      <option name="ignoredIdentifiers">
++        <list>
++          <option value="object.*" />
++        </list>
++      </option>
++    </inspection_tool>
++  </profile>
++</component>
+\ No newline at end of file
+Index: .idea/modules.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/.idea/modules.xml b/.idea/modules.xml
+new file mode 100644
+--- /dev/null	(date 1718198734478)
++++ b/.idea/modules.xml	(date 1718198734478)
+@@ -0,0 +1,8 @@
++<?xml version="1.0" encoding="UTF-8"?>
++<project version="4">
++  <component name="ProjectModuleManager">
++    <modules>
++      <module fileurl="file://$PROJECT_DIR$/.idea/Availability monitor.iml" filepath="$PROJECT_DIR$/.idea/Availability monitor.iml" />
++    </modules>
++  </component>
++</project>
+\ No newline at end of file
+Index: .idea/Availability monitor.iml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/.idea/Availability monitor.iml b/.idea/Availability monitor.iml
+new file mode 100644
+--- /dev/null	(date 1718198734406)
++++ b/.idea/Availability monitor.iml	(date 1718198734406)
+@@ -0,0 +1,8 @@
++<?xml version="1.0" encoding="UTF-8"?>
++<module type="PYTHON_MODULE" version="4">
++  <component name="NewModuleRootManager">
++    <content url="file://$MODULE_DIR$" />
++    <orderEntry type="inheritedJdk" />
++    <orderEntry type="sourceFolder" forTests="false" />
++  </component>
++</module>
+\ No newline at end of file
+Index: .idea/vcs.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/.idea/vcs.xml b/.idea/vcs.xml
+new file mode 100644
+--- /dev/null	(date 1718198734550)
++++ b/.idea/vcs.xml	(date 1718198734550)
+@@ -0,0 +1,6 @@
++<?xml version="1.0" encoding="UTF-8"?>
++<project version="4">
++  <component name="VcsDirectoryMappings">
++    <mapping directory="$PROJECT_DIR$" vcs="Git" />
++  </component>
++</project>
+\ No newline at end of file
+Index: .idea/misc.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/.idea/misc.xml b/.idea/misc.xml
+new file mode 100644
+--- /dev/null	(date 1718198765457)
++++ b/.idea/misc.xml	(date 1718198765457)
+@@ -0,0 +1,7 @@
++<?xml version="1.0" encoding="UTF-8"?>
++<project version="4">
++  <component name="Black">
++    <option name="sdkName" value="C:\ProgramData\anaconda3" />
++  </component>
++  <component name="ProjectRootManager" version="2" project-jdk-name="C:\ProgramData\anaconda3" project-jdk-type="Python SDK" />
++</project>
+\ No newline at end of file
+Index: Main.py
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/Main.py b/Main.py
+new file mode 100644
+--- /dev/null	(date 1718568329475)
++++ b/Main.py	(date 1718568329475)
+@@ -0,0 +1,93 @@
++import requests
++import random
++import time
++import csv
++import smtplib
++from email.mime.multipart import MIMEMultipart
++from email.mime.text import MIMEText
++import plyer
++from bs4 import BeautifulSoup
++import matplotlib.pyplot as plt
++
++def main():
++    # smtp_server = 'smtp-mail.outlook.com'
++    # smtp_port = 587
++    # sender_email = 'availability_notifier@outlook.com'
++    # sender_password = 'meGxnvapAJ9zrfX'
++    #
++    # msg = MIMEMultipart()
++    # msg['From'] = 'availability_notifier@outlook.com'
++    # msg['To'] = '272659@student.pwr.edu.pl'
++    # msg['Subject'] = 'Your product is available!'
++    #
++    # body = 'Produkt iphone 13 pro jest dostępny w sklepie Amazon.pl!'
++    # msg.attach(MIMEText(body, 'plain'))
++    #
++    # print(msg)
++    #
++    # try:
++    #     with smtplib.SMTP(smtp_server, smtp_port) as server:
++    #         server.starttls()
++    #         server.login(sender_email, sender_password)
++    #         server.sendmail(sender_email, msg['To'], msg.as_string())
++    #         print('Wiadomość została wysłana.')
++    # except Exception as e:
++    #     print(f'Błąd podczas wysyłania wiadomości: {e}')
++
++    headers = {
++        "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.124 Safari/537.36",
++        "Accept-Language": "en-US,en;q=0.9",
++        "Accept-Encoding": "gzip, deflate, br",
++        "Referer": "https://www.google.com/",
++        "DNT": "1",
++    }
++    result1 = requests.get('https://www.amazon.pl/iPhone-Pro-Max-128-grafitowy/dp/B09MJT13PW/ref=sr_1_5?__mk_pl_PL=%C3'
++                          '%85M%C3%85%C5%BD%C3%95%C3%91&crid=Z5HDU003DVQ7&dib=eyJ2IjoiMSJ9'
++                          '.xOH6DV6GriBQHRTYaTLfla0nda9t8dyVLwX7afv0YCqdyO89lF0Rmxu'
++                          '-zIQp9kng_8wp4gbZXTC3JGrJigwwFgt_9FeyLmk8va7cvdql8qQA122umHAcznQy1jM'
++                          '-NOpZQUpUrLGbHVANLiIvXkNs1TYZh5rsp4anyn2z7di3HtafdV5TIirrM1Lg2W0x1uBJS0IHFIeWaff_5oRzHQ3J7h'
++                          'kvNix8Uszlpj4-qxcgazPVBkDQ-NrpOqmRFprAhF_btrTezXSHFJW4oodmFvDTMteEgvaosFP4WnRvUxY2spw.Aao6S'
++                          'JbZU-TSGJ2Tr2BHJLAgIF7-2gPOlUY1ddNpro0&dib_tag=se&keywords=iphone+13+pro&qid=1718196200&sp'
++                          'refix=iphone+13+pro%2Caps%2C125&sr=8-5', headers=headers)
++    document1 = BeautifulSoup(result1.text, 'html.parser')
++    print(document1.prettify())
++
++    # result2 = requests.get('https://www.amazon.pl/iPhone-13-Pro-128-grafitowy/dp/B09MJS7JWS/ref=sr_1_6?__mk_pl_PL=%C'
++    #                        '3%85M%C3%85%C5%BD%C3%95%C3%91&crid=Z5HDU003DVQ7&dib=eyJ2IjoiMSJ9.xOH6DV6GriBQHRTYaTLfla0'
++    #                        'nda9t8dyVLwX7afv0YCqdyO89lF0Rmxu-zIQp9kng_8wp4gbZXTC3JGrJigwwFgt_9FeyLmk8va7cvdql8qQA122'
++    #                        'umHAcznQy1jM-NOpZQUpUrLGbHVANLiIvXkNs1TYZh5rsp4anyn2z7di3HtafdV5TIirrM1Lg2W0x1uBJS0IHFIe'
++    #                        'Waff_5oRzHQ3J7hkvNix8Uszlpj4-qxcgazPVBkDQ-NrpOqmRFprAhF_btrTezXSHFJW4oodmFvDTMteEgvaosFP'
++    #                        '4WnRvUxY2spw.Aao6SJbZU-TSGJ2Tr2BHJLAgIF7-2gPOlUY1ddNpro0&dib_tag=se&keywords=iphone+13+p'
++    #                        'ro&qid=1718196200&sprefix=iphone+13+pro%2Caps%2C125&sr=8-6', headers=headers)
++    # document2 = BeautifulSoup(result2.text, 'html.parser')
++    # print(document2.prettify())
++
++    # result3 = requests.get('https://www.mediaexpert.pl/komputery-i-tablety/laptopy-i-ultrabooki/laptopy/laptop-'
++    #                        'acer-aspire-7-a715-42g-15-6-ips-r5-5500u-8gb-ram-256gb-ssd-geforce-gtx1650', headers=headers)
++    # document3 = BeautifulSoup(result3.text, 'html.parser')
++    # print(document3.prettify())
++
++    # result4 = requests.get('https://www.mediaexpert.pl/agd-male/sprzatanie/odkurzacze-automatyczne/'
++    #                        'robot-sprzatajacy-dreame-l10s-pro-ultra-heat', headers=headers)
++    # document4 = BeautifulSoup(result4.text, 'html.parser')
++    # print(document4.prettify())
++
++
++
++    # plyer.notification.notify(
++    #     title='Availability monitor',
++    #     message='Your product is available!',
++    #     timeout=10
++    # )
++    #
++    # ceny = [3000, 3500, 2900, 3100, 3000]
++    # daty = ['2021-10-01', '2021-10-02', '2021-10-03', '2021-10-04', '2021-10-05']
++    # plt.plot(daty, ceny)
++    # plt.xlabel('Data')
++    # plt.ylabel('Cena')
++    # plt.title('Zmiana ceny produktu')
++    # plt.show()
++
++
++if __name__ == '__main__':
++    main()
+\ No newline at end of file
+Index: .idea/.gitignore
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/.idea/.gitignore b/.idea/.gitignore
+new file mode 100644
+--- /dev/null	(date 1718198712886)
++++ b/.idea/.gitignore	(date 1718198712886)
+@@ -0,0 +1,8 @@
++# Default ignored files
++/shelf/
++/workspace.xml
++# Editor-based HTTP Client requests
++/httpRequests/
++# Datasource local storage ignored files
++/dataSources/
++/dataSources.local.xml
+Index: .idea/inspectionProfiles/profiles_settings.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/.idea/inspectionProfiles/profiles_settings.xml b/.idea/inspectionProfiles/profiles_settings.xml
+new file mode 100644
+--- /dev/null	(date 1718198734525)
++++ b/.idea/inspectionProfiles/profiles_settings.xml	(date 1718198734525)
+@@ -0,0 +1,6 @@
++<component name="InspectionProjectProfileManager">
++  <settings>
++    <option name="USE_PROJECT_PROFILE" value="false" />
++    <version value="1.0" />
++  </settings>
++</component>
+\ No newline at end of file
