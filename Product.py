@@ -21,10 +21,15 @@ class Produkt:
         try:
             is_available = False
             price = 0.0
+
             if 'https://www.amazon.pl' in self.url:
                 is_available, price = Scraper.check_availability_and_price_on_amazon(self.url)
+            elif 'https://www.mediaexpert.pl' in self.url:
+                is_available, price = Scraper.check_availability_and_price_on_mediaexpert(self.url)
+
             self.is_available = is_available
             self.price = price
+
         except ValueError as e:
             print(e)
 
