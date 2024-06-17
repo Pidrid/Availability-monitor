@@ -49,8 +49,27 @@ class Manager:
     def get_products(self) -> list[Product]:
         return self.__products
 
-    # def load_products_from_csv(self):
-    #     with open(self.csv_file, 'r') as file:
-    #         for line in file:
-    #
-    #
+    def change_product_name(self, product: Product, new_name: str):
+        product.name = new_name
+        self.save_products_to_json()
+
+    def change_product_email(self, product: Product, new_email: str):
+        product.email = new_email
+        self.save_products_to_json()
+
+    def set_availability_system_notify(self, product: Product, notify: bool):
+        product.availability_system_notify = notify
+        self.save_products_to_json()
+
+    def set_availability_email_notify(self, product: Product, notify: bool):
+        product.availability_email_notify = notify
+        self.save_products_to_json()
+
+    def set_price_change_system_notify(self, product: Product, notify: bool):
+        product.price_change_system_notify = notify
+        self.save_products_to_json()
+
+    def set_price_change_email_notify(self, product: Product, notify: bool):
+        product.price_change_email_notify = notify
+        self.save_products_to_json()
+
