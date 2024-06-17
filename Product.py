@@ -1,4 +1,5 @@
 from datetime import datetime
+
 import Scraper
 
 
@@ -20,6 +21,20 @@ class Product:
             self.__price_history = {}
         else:
             self.__price_history = price_history
+
+    def __dict__(self) -> dict:
+        return {
+            'name': self.name,
+            'url': self.__url,
+            'availability_system_notify': self.availability_system_notify,
+            'availability_email_notify': self.availability_email_notify,
+            'price_change_system_notify': self.price_change_system_notify,
+            'price_change_email_notify': self.price_change_email_notify,
+            'email': self.email,
+            'price': self.__price,
+            'is_available': self.__is_available,
+            'price_history': self.__price_history
+        }
 
     def update_price_and_availability(self):
         try:
