@@ -21,7 +21,6 @@ class Product:
             self.__price_history = {}
         else:
             self.__price_history = price_history
-        self.update_price_and_availability()
 
     def __dict__(self) -> dict:
         return {

@@ -1,0 +1,7 @@
+{
+    "refresh_time": 300,
+    "email_for_notifications": "availability_notifier@outlook.com",
+    "email_password": "meGxnvapAJ9zrfX",
+    "smtp_server": "smtp-mail.outlook.com",
+    "smtp_port": 587
+}

@@ -1,16 +1,16 @@
 [
     {
-        "name": "Laptop asus",
+        "name": "Laptop",
         "url": "https://www.mediaexpert.pl/komputery-i-tablety/laptopy-i-ultrabooki/laptopy/laptop-asus-m515ua-bq467-15-6-ips-r5-5500u-8gb-ram-512gb-ssd",
-        "availability_system_notification": false,
-        "availability_email_notification": false,
+        "availability_system_notification": true,
+        "availability_email_notification": true,
         "price_change_system_notification": true,
         "price_change_email_notification": true,
-        "email": "new_email",
+        "email": "email",
         "price": 2099.99,
         "is_available": true,
         "price_history": {
-            "2024-06-18 02:52:10": 2099.99
+            "2024-06-18 14:33:14": 2099.99
         }
     },
     {
@@ -19,12 +19,14 @@
         "availability_system_notification": false,
         "availability_email_notification": false,
         "price_change_system_notification": true,
-        "price_change_email_notification": true,
+        "price_change_email_notification": false,
         "email": "",
-        "price": 0.0,
-        "is_available": false,
+        "price": 3314.02,
+        "is_available": true,
         "price_history": {
-            "2024-06-18 02:52:11": 0.0
+            "2024-06-18 14:33:17": 3500.12,
+            "2024-06-18 14:37:36": 3300.0,
+            "2024-06-18 14:39:00": 3314.02
         }
     }
 ]

@@ -11,16 +11,18 @@ from Product import Product
 
 
 class Manager:
-    def __init__(self, json_file: str, refresh_time: int, email_for_notifications: str, email_password: str,
-                 smtp_server: str, smtp_port: int):
+    def __init__(self, json_file: str, json_settings: str):
         self.__json_file = json_file
+        self.__json_settings = json_settings
         self.__products = []
-        self.__refresh_time = refresh_time
-        self.__email_for_notifications = email_for_notifications
-        self.__email_password = email_password
-        self.__smtp_server = smtp_server
-        self.__smtp_port = smtp_port
+        self.__refresh_time = None
+        self.__email_for_notifications = None
+        self.__email_password = None
+        self.__smtp_server = None
+        self.__smtp_port = None
+        self.load_settings_from_json()
         self.load_products_from_json()
+        self.refresh_products()
 
     def save_products_to_json(self):
         products_dictionary = [product.__dict__() for product in self.__products]
@@ -32,16 +34,41 @@ class Manager:
         with open(self.__json_file, 'r') as file:
             try:
                 products = json.load(file)
+                for product in products:
+                    self.__products.append(Product(product['name'], product['url'],
+                                                   product['availability_system_notification'],
+                                                   product['availability_email_notification'],
+                                                   product['price_change_system_notification'],
+                                                   product['price_change_email_notification'], product['email'],
+                                                   product['price'], product['is_available'], product['price_history']))
             except json.JSONDecodeError:
-                return  # If the file is empty, it will be created with products saving
+                pass  # If the file is empty, it will be created with products saving
 
-            for product in products:
-                self.__products.append(Product(product['name'], product['url'],
-                                               product['availability_system_notification'],
-                                               product['availability_email_notification'],
-                                               product['price_change_system_notification'],
-                                               product['price_change_email_notification'], product['email'],
-                                               product['price'], product['is_available'], product['price_history']))
+    def save_settings_to_json(self):
+        settings = {
+            "refresh_time": self.__refresh_time,
+            "email_for_notifications": self.__email_for_notifications,
+            "email_password": self.__email_password,
+            "smtp_server": self.__smtp_server,
+            "smtp_port": self.__smtp_port
+        }
+        with open(self.__json_settings, 'w') as file:
+            json.dump(settings, file, indent=4)
+
+    def load_settings_from_json(self):
+        try:
+            with open(self.__json_settings, 'r') as file:
+                settings = json.load(file)
+                self.__refresh_time = settings.get("refresh_time", self.__refresh_time)
+                if self.__refresh_time < 30:
+                    self.__refresh_time = 30
+                    self.save_settings_to_json()
+                self.__email_for_notifications = settings.get("email_for_notifications", self.__email_for_notifications)
+                self.__email_password = settings.get("email_password", self.__email_password)
+                self.__smtp_server = settings.get("smtp_server", self.__smtp_server)
+                self.__smtp_port = settings.get("smtp_port", self.__smtp_port)
+        except (json.JSONDecodeError, FileNotFoundError):
+            raise FileNotFoundError("Settings file not found!")
 
     def refresh_products(self):
         for product in self.__products:
@@ -50,15 +77,15 @@ class Manager:
 
             product.update_price_and_availability()
 
-            # Checking if the product is back in stock
-            if product.is_available() and not is_available:
-                if product.availability_system_notification:
+            # Checking if the product has changed its availability
+            if product.is_available() != is_available:
+                if product.availability_system_notification and product.is_available():
                     notification.notify(
                         title="Product is back in stock!",
                         message=f"{product.name} is available now!",
                         app_name="Monitor"
                     )
-                if product.availability_email_notification:
+                if product.availability_email_notification and product.is_available():
                     msg = MIMEMultipart()
                     msg['From'] = self.__email_for_notifications
                     msg['To'] = product.email
@@ -151,3 +178,20 @@ class Manager:
     def set_price_change_email_notification(self, product: Product, notification_to_set: bool):
         product.price_change_email_notification = notification_to_set
         self.save_products_to_json()
+
+    def set_checking_frequency(self, new_frequency: int):
+        if new_frequency >= 30:
+            self.__refresh_time = new_frequency
+        else:
+            raise ValueError("Refresh time must be at least 30 seconds!")
+        self.save_settings_to_json()
+
+    def set_email_for_notifications(self, new_email: str, new_password: str):
+        self.__email_for_notifications = new_email
+        self.__email_password = new_password
+        self.save_settings_to_json()
+
+    def set_smtp_server(self, new_server: str, new_port: int):
+        self.__smtp_server = new_server
+        self.__smtp_port = new_port
+        self.save_settings_to_json()

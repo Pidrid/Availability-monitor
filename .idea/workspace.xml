@@ -4,7 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="b866c647-3c6e-49f5-8adc-776b6a7e64ab" name="Changes" comment="feat(Manager): Add methods to change product properties">
+    <list default="true" id="b866c647-3c6e-49f5-8adc-776b6a7e64ab" name="Changes" comment="feat(Manager): Add refresh_products method with notifications&#10;fix (Manager): Correct json.load(file) in load_products_from_json method when .json file is empty&#10;refactor(Product): Change word 'notify' with 'notification'&#10;refactor(Manager): Change word 'notify' with 'notification'">
       <change afterPath="$PROJECT_DIR$/Application.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Manager.py" beforeDir="false" afterPath="$PROJECT_DIR$/Manager.py" afterDir="false" />
@@ -47,22 +47,22 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;Python.Application.executor&quot;: &quot;Run&quot;,
-    &quot;Python.Main.executor&quot;: &quot;Run&quot;,
-    &quot;Python.Scraper.executor&quot;: &quot;Run&quot;,
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;master&quot;,
-    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
-    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
-    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
-    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
-    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
-    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "Python.Application.executor": "Run",
+    "Python.Main.executor": "Run",
+    "Python.Scraper.executor": "Run",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "git-widget-placeholder": "master",
+    "node.js.detected.package.eslint": "true",
+    "node.js.detected.package.tslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.tslint": "(autodetect)",
+    "nodejs_package_manager_path": "npm",
+    "vue.rearranger.settings.migration": "true"
   }
-}</component>
-  <component name="RunManager" selected="Python.Main">
+}]]></component>
+  <component name="RunManager">
     <configuration name="Application" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
       <module name="Availability monitor" />
       <option name="ENV_FILES" value="" />
@@ -163,7 +163,8 @@
       <workItem from="1718632068006" duration="97000" />
       <workItem from="1718632176915" duration="8221000" />
       <workItem from="1718657860818" duration="5059000" />
-      <workItem from="1718668142603" duration="3862000" />
+      <workItem from="1718668142603" duration="4107000" />
+      <workItem from="1718710700171" duration="3616000" />
     </task>
     <task id="LOCAL-00001" summary="Add: Product class, Scraper with check_availability_and_price_on_amazon function">
       <option name="closed" value="true" />
@@ -237,7 +238,15 @@
       <option name="project" value="LOCAL" />
       <updated>1718666297071</updated>
     </task>
-    <option name="localTasksCounter" value="10" />
+    <task id="LOCAL-00010" summary="feat(Manager): Add refresh_products method with notifications&#10;fix (Manager): Correct json.load(file) in load_products_from_json method when .json file is empty&#10;refactor(Product): Change word 'notify' with 'notification'&#10;refactor(Manager): Change word 'notify' with 'notification'">
+      <option name="closed" value="true" />
+      <created>1718672090174</created>
+      <option name="number" value="00010" />
+      <option name="presentableId" value="LOCAL-00010" />
+      <option name="project" value="LOCAL" />
+      <updated>1718672090174</updated>
+    </task>
+    <option name="localTasksCounter" value="11" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -262,10 +271,77 @@
     <MESSAGE value="feat(Product): Add __dict__ method" />
     <MESSAGE value="feat(Product): Use update_price_and_availability method at the end of initialization&#10;feat(Manager): Add Manager class&#10;feat(Manager): Add save_products_to_json and _load_products_from_json methods&#10;feat(Manager): Add add_product, remove_product and get_products methods&#10;fix: Replace products.csv with products.json" />
     <MESSAGE value="feat(Manager): Add methods to change product properties" />
-    <option name="LAST_COMMIT_MESSAGE" value="feat(Manager): Add methods to change product properties" />
+    <MESSAGE value="feat(Manager): Add refresh_products method with notifications&#10;fix (Manager): Correct json.load(file) in load_products_from_json method when .json file is empty&#10;refactor(Product): Change word 'notify' with 'notification'&#10;refactor(Manager): Change word 'notify' with 'notification'" />
+    <option name="LAST_COMMIT_MESSAGE" value="feat(Manager): Add refresh_products method with notifications&#10;fix (Manager): Correct json.load(file) in load_products_from_json method when .json file is empty&#10;refactor(Product): Change word 'notify' with 'notification'&#10;refactor(Manager): Change word 'notify' with 'notification'" />
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/Product.py</url>
+          <line>43</line>
+          <option name="timeStamp" value="6" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/Product.py</url>
+          <line>45</line>
+          <option name="timeStamp" value="8" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/Product.py</url>
+          <line>48</line>
+          <option name="timeStamp" value="9" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/Product.py</url>
+          <line>49</line>
+          <option name="timeStamp" value="10" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/Product.py</url>
+          <line>55</line>
+          <option name="timeStamp" value="11" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/Product.py</url>
+          <line>56</line>
+          <option name="timeStamp" value="12" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/Manager.py</url>
+          <line>23</line>
+          <option name="timeStamp" value="13" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/Manager.py</url>
+          <line>24</line>
+          <option name="timeStamp" value="14" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/Manager.py</url>
+          <line>74</line>
+          <option name="timeStamp" value="16" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/Manager.py</url>
+          <line>75</line>
+          <option name="timeStamp" value="17" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/Manager.py</url>
+          <line>77</line>
+          <option name="timeStamp" value="18" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/Manager.py</url>
+          <line>80</line>
+          <option name="timeStamp" value="19" />
+        </line-breakpoint>
+      </breakpoints>
+    </breakpoint-manager>
   </component>
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
-    <SUITE FILE_PATH="coverage/Availability_monitor$Main.coverage" NAME="Main Coverage Results" MODIFIED="1718671926467" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/Availability_monitor$Main.coverage" NAME="Main Coverage Results" MODIFIED="1718714335351" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/Availability_monitor$Scraper.coverage" NAME="Scraper Coverage Results" MODIFIED="1718663833099" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/Availability_monitor$Application.coverage" NAME="Application Coverage Results" MODIFIED="1718667606447" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
   </component>
