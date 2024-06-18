@@ -1,6 +1,7 @@
 import json
 import random
 import smtplib
+import threading
 import time
 from email.mime.multipart import MIMEMultipart
 from email.mime.text import MIMEText
@@ -20,9 +21,20 @@ class Manager:
         self.__email_password = None
         self.__smtp_server = None
         self.__smtp_port = None
+        self.__refresh_thread = None
         self.load_settings_from_json()
         self.load_products_from_json()
         self.refresh_products()
+        self.start_refresh_thread()
+
+    def start_refresh_thread(self):
+        self.__refresh_thread = threading.Thread(target=self.refresh_products_thread, daemon=True)
+        self.__refresh_thread.start()
+
+    def refresh_products_thread(self):
+        while True:
+            time.sleep(self.__refresh_time)
+            self.refresh_products()
 
     def save_products_to_json(self):
         products_dictionary = [product.__dict__() for product in self.__products]
@@ -127,7 +139,7 @@ class Manager:
 
                 self.save_products_to_json()
 
-            random_number = random.uniform(0.5, 2.5)  # Avoiding being blocked by the website
+            random_number = random.uniform(0.5, 2)  # Avoiding being blocked by the website
             time.sleep(random_number)
 
     def add_product(self, name: str, url: str, availability_system_notification: bool = False,
