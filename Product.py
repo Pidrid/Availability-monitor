@@ -4,16 +4,16 @@ import Scraper
 
 
 class Product:
-    def __init__(self, name: str, url: str, availability_system_notify: bool = False,
-                 availability_email_notify: bool = False, price_change_system_notify: bool = False,
-                 price_change_email_notify: bool = False, email: str = "",
+    def __init__(self, name: str, url: str, availability_system_notification: bool = False,
+                 availability_email_notification: bool = False, price_change_system_notification: bool = False,
+                 price_change_email_notification: bool = False, email: str = "",
                  price: float = 0.0, is_available: bool = False, price_history: dict[str, float] = None):
         self.name = name
         self.__url = url
-        self.availability_system_notify = availability_system_notify
-        self.availability_email_notify = availability_email_notify
-        self.price_change_system_notify = price_change_system_notify
-        self.price_change_email_notify = price_change_email_notify
+        self.availability_system_notification = availability_system_notification
+        self.availability_email_notification = availability_email_notification
+        self.price_change_system_notification = price_change_system_notification
+        self.price_change_email_notification = price_change_email_notification
         self.email = email
         self.__price = price
         self.__is_available = is_available
@@ -27,10 +27,10 @@ class Product:
         return {
             'name': self.name,
             'url': self.__url,
-            'availability_system_notify': self.availability_system_notify,
-            'availability_email_notify': self.availability_email_notify,
-            'price_change_system_notify': self.price_change_system_notify,
-            'price_change_email_notify': self.price_change_email_notify,
+            'availability_system_notification': self.availability_system_notification,
+            'availability_email_notification': self.availability_email_notification,
+            'price_change_system_notification': self.price_change_system_notification,
+            'price_change_email_notification': self.price_change_email_notification,
             'email': self.email,
             'price': self.__price,
             'is_available': self.__is_available,

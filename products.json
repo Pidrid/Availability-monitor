@@ -1,1 +1,30 @@
-[]
+[
+    {
+        "name": "Laptop asus",
+        "url": "https://www.mediaexpert.pl/komputery-i-tablety/laptopy-i-ultrabooki/laptopy/laptop-asus-m515ua-bq467-15-6-ips-r5-5500u-8gb-ram-512gb-ssd",
+        "availability_system_notification": false,
+        "availability_email_notification": false,
+        "price_change_system_notification": true,
+        "price_change_email_notification": true,
+        "email": "new_email",
+        "price": 2099.99,
+        "is_available": true,
+        "price_history": {
+            "2024-06-18 02:52:10": 2099.99
+        }
+    },
+    {
+        "name": "iphone",
+        "url": "https://www.amazon.pl/iPhone-Pro-Max-128-grafitowy/dp/B09MJT13PW/ref=sr_1_5?__mk_pl_PL=%C3%85M%C3%85%C5%BD%C3%95%C3%91&crid=Z5HDU003DVQ7&dib=eyJ2IjoiMSJ9.xOH6DV6GriBQHRTYaTLfla0nda9t8dyVLwX7afv0YCqdyO89lF0Rmxu-zIQp9kng_8wp4gbZXTC3JGrJigwwFgt_9FeyLmk8va7cvdql8qQA122umHAcznQy1jM-NOpZQUpUrLGbHVANLiIvXkNs1TYZh5rsp4anyn2z7di3HtafdV5TIirrM1Lg2W0x1uBJS0IHFIeWaff_5oRzHQ3J7hkvNix8Uszlpj4-qxcgazPVBkDQ-NrpOqmRFprAhF_btrTezXSHFJW4oodmFvDTMteEgvaosFP4WnRvUxY2spw.Aao6SJbZU-TSGJ2Tr2BHJLAgIF7-2gPOlUY1ddNpro0&dib_tag=se&keywords=iphone+13+pro&qid=1718196200&sprefix=iphone+13+pro%2Caps%2C125&sr=8-5",
+        "availability_system_notification": false,
+        "availability_email_notification": false,
+        "price_change_system_notification": true,
+        "price_change_email_notification": true,
+        "email": "",
+        "price": 0.0,
+        "is_available": false,
+        "price_history": {
+            "2024-06-18 02:52:11": 0.0
+        }
+    }
+]
