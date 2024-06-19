@@ -1,7 +1,7 @@
 {
-    "refresh_time": 300,
-    "email_for_notifications": "availability_notifier@outlook.com",
-    "email_password": "meGxnvapAJ9zrfX",
+    "refresh_time": 30,
+    "email_for_notifications": "a_monitor@outlook.com",
+    "email_password": "jLzL8M8mUTM5AHA",
     "smtp_server": "smtp-mail.outlook.com",
     "smtp_port": 587
 }

@@ -7,10 +7,11 @@
         "price_change_system_notification": true,
         "price_change_email_notification": true,
         "email": "email",
-        "price": 2200.10,
+        "price": 2099.99,
         "is_available": true,
         "price_history": {
-            "2024-06-18 14:33:14": 2200.10
+            "2024-06-18 14:33:14": 2300.0,
+            "2024-06-19 18:32:53": 2099.99
         }
     },
     {

@@ -24,8 +24,7 @@ class Manager:
         self.__refresh_thread = None
         self.load_settings_from_json()
         self.load_products_from_json()
-        self.refresh_products()
-        self.start_refresh_thread()
+        self.errors = []
 
     def start_refresh_thread(self):
         self.__refresh_thread = threading.Thread(target=self.refresh_products_thread, daemon=True)
@@ -33,8 +32,8 @@ class Manager:
 
     def refresh_products_thread(self):
         while True:
-            time.sleep(self.__refresh_time)
             self.refresh_products()
+            time.sleep(self.__refresh_time)
 
     def save_products_to_json(self):
         products_dictionary = [product.__dict__() for product in self.__products]
@@ -110,32 +109,33 @@ class Manager:
                             server.login(self.__email_for_notifications, self.__email_password)
                             server.sendmail(self.__email_for_notifications, msg['To'], msg.as_string())
                     except Exception as e:
-                        raise Exception(f"{e}")
+                        self.errors.append(f"{e} for product: {product.name}")
 
                 self.save_products_to_json()
 
             # Checking if the price has changed
             if product.get_price() != price:
-                if product.price_change_system_notification:
-                    notification.notify(
-                        title="Product got price change!",
-                        message=f"{product.name} price has changed to {product.get_price()} PLN!",
-                        app_name="Monitor"
-                    )
-                if product.price_change_email_notification:
-                    msg = MIMEMultipart()
-                    msg['From'] = self.__email_for_notifications
-                    msg['To'] = product.email
-                    msg['Subject'] = "Product got price change!"
-                    msg.attach(MIMEText(f"{product.name} price has changed to {product.get_price()} PLN!"))
+                if product.get_price() < price:  # Checking if the price has been reduced
+                    if product.price_change_system_notification:
+                        notification.notify(
+                            title="Product's price got reduced!",
+                            message=f"{product.name} price has changed to {product.get_price()} PLN!",
+                            app_name="Monitor"
+                        )
+                    if product.price_change_email_notification:
+                        msg = MIMEMultipart()
+                        msg['From'] = self.__email_for_notifications
+                        msg['To'] = product.email
+                        msg['Subject'] = "Product's price got reduced!"
+                        msg.attach(MIMEText(f"{product.name} price has changed to {product.get_price()} PLN!"))
 
-                    try:
-                        with smtplib.SMTP(self.__smtp_server, self.__smtp_port) as server:
-                            server.starttls()
-                            server.login(self.__email_for_notifications, self.__email_password)
-                            server.sendmail(self.__email_for_notifications, msg['To'], msg.as_string())
-                    except Exception as e:
-                        raise Exception(f"{e}")
+                        try:
+                            with smtplib.SMTP(self.__smtp_server, self.__smtp_port) as server:
+                                server.starttls()
+                                server.login(self.__email_for_notifications, self.__email_password)
+                                server.sendmail(self.__email_for_notifications, msg['To'], msg.as_string())
+                        except Exception as e:
+                            self.errors.append(f"{e} for product: {product.name}")
 
                 self.save_products_to_json()
 
