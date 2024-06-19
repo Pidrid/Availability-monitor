@@ -1,5 +1,5 @@
 {
-    "refresh_time": 30,
+    "refresh_time": 60,
     "email_for_notifications": "a_monitor@outlook.com",
     "email_password": "jLzL8M8mUTM5AHA",
     "smtp_server": "smtp-mail.outlook.com",

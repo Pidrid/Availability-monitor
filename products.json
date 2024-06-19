@@ -11,24 +11,82 @@
         "is_available": true,
         "price_history": {
             "2024-06-18 14:33:14": 2300.0,
-            "2024-06-19 18:32:53": 2099.99
+            "2024-06-19 18:32:53": 2099.99,
+            "2024-06-19 20:06:00": 0.0,
+            "2024-06-19 20:06:39": 2099.99,
+            "2024-06-20 00:12:04": 0.0,
+            "2024-06-20 00:12:47": 2099.99,
+            "2024-06-20 00:13:19": 0.0,
+            "2024-06-20 01:02:14": 2099.99,
+            "2024-06-20 01:05:55": 0.0,
+            "2024-06-20 01:25:33": 2099.99
         }
     },
     {
         "name": "iphone",
         "url": "https://www.amazon.pl/iPhone-Pro-Max-128-grafitowy/dp/B09MJT13PW/ref=sr_1_5?__mk_pl_PL=%C3%85M%C3%85%C5%BD%C3%95%C3%91&crid=Z5HDU003DVQ7&dib=eyJ2IjoiMSJ9.xOH6DV6GriBQHRTYaTLfla0nda9t8dyVLwX7afv0YCqdyO89lF0Rmxu-zIQp9kng_8wp4gbZXTC3JGrJigwwFgt_9FeyLmk8va7cvdql8qQA122umHAcznQy1jM-NOpZQUpUrLGbHVANLiIvXkNs1TYZh5rsp4anyn2z7di3HtafdV5TIirrM1Lg2W0x1uBJS0IHFIeWaff_5oRzHQ3J7hkvNix8Uszlpj4-qxcgazPVBkDQ-NrpOqmRFprAhF_btrTezXSHFJW4oodmFvDTMteEgvaosFP4WnRvUxY2spw.Aao6SJbZU-TSGJ2Tr2BHJLAgIF7-2gPOlUY1ddNpro0&dib_tag=se&keywords=iphone+13+pro&qid=1718196200&sprefix=iphone+13+pro%2Caps%2C125&sr=8-5",
-        "availability_system_notification": false,
+        "availability_system_notification": true,
         "availability_email_notification": false,
         "price_change_system_notification": true,
         "price_change_email_notification": false,
         "email": "",
-        "price": 3046.01,
-        "is_available": true,
+        "price": 0.0,
+        "is_available": false,
         "price_history": {
             "2024-06-18 14:33:17": 3500.12,
             "2024-06-18 14:37:36": 3300.0,
             "2024-06-18 14:39:00": 3314.02,
-            "2024-06-18 20:26:31": 3046.01
+            "2024-06-18 20:26:31": 3046.01,
+            "2024-06-20 01:02:35": 0.0,
+            "2024-06-20 01:06:07": 3046.01,
+            "2024-06-20 01:25:44": 0.0
+        }
+    },
+    {
+        "name": "acer laptop",
+        "url": "https://www.mediaexpert.pl/komputery-i-tablety/laptopy-i-ultrabooki/laptopy/laptop-acer-aspire-7-a715-42g-15-6-ips-r5-5500u-8gb-ram-256gb-ssd-geforce-gtx1650",
+        "availability_system_notification": false,
+        "availability_email_notification": false,
+        "price_change_system_notification": false,
+        "price_change_email_notification": false,
+        "email": "przykladowy@email.com",
+        "price": 3299.99,
+        "is_available": false,
+        "price_history": {
+            "2024-06-19 21:04:42": 3299.99,
+            "2024-06-20 00:13:26": 0.0,
+            "2024-06-20 01:25:45": 3299.99
+        }
+    },
+    {
+        "name": "tarcza bosch",
+        "url": "https://www.amazon.pl/Bosch-Professional-standard-akcesoria-szlifierek/dp/B00F11NPP0/ref=zg_bs_c_industrial_d_sccl_6/261-9124177-8929758?pd_rd_w=KhybF&content-id=amzn1.sym.b3bbdb6a-2a42-4b01-820e-17a52dfef1dd&pf_rd_p=b3bbdb6a-2a42-4b01-820e-17a52dfef1dd&pf_rd_r=VVD1E4VFP38DPNBQ8W7G&pd_rd_wg=hZoRq&pd_rd_r=7cfabcde-b27c-4e94-8ef7-c480129c5579&pd_rd_i=B00F11NPP0&psc=1",
+        "availability_system_notification": true,
+        "availability_email_notification": false,
+        "price_change_system_notification": true,
+        "price_change_email_notification": false,
+        "email": "",
+        "price": 0.0,
+        "is_available": false,
+        "price_history": {
+            "2024-06-20 00:19:10": 2.05,
+            "2024-06-20 01:02:42": 0.0,
+            "2024-06-20 01:06:12": 2.05,
+            "2024-06-20 01:25:49": 0.0
+        }
+    },
+    {
+        "name": "lego",
+        "url": "https://www.amazon.pl/LEGO-Mercedes-AMG-Performance-Konstrukcyjna-42165/dp/B0CFVYZRN1/ref=sr_1_10?_encoding=UTF8&content-id=amzn1.sym.dc63a72e-141d-4767-9611-5c560b470a9c&dib=eyJ2IjoiMSJ9.2GvMtYlxD1P3DB83nH-Xr8xJ3OiPO7pN2MkdmqPkFIqn9UtqGxT6krX-EWPo8PjkmdeHY40qqds_d_sdMVYDRIp3NJzzDLlrQdufRA7TvZONgAwHj8WPXZHnVTdcB2EAinwfkrG9QkQxfp0Lwyrp0k9QyK6MQugAzq2Xp-KOpxPrykxp4RqTOxUEtrPIpZE7s-J9M1iTBdkejKKiue1foFDZianD7lss0rVV3W9_HtjtIQCe654PqPpTV5w1PR7jG6Ujq8KL0SPKqDvqIBGEiqod-n9MDebj9HawuzkHMLM.j1uP477UjI8HbdgFBm0DMW63xFsbv0kvA1i42fpXJ38&dib_tag=se&pd_rd_r=297dc5f4-139e-49c3-84e6-c48c3a41a0f3&pd_rd_w=RKgwf&pd_rd_wg=1KL2o&pf_rd_p=dc63a72e-141d-4767-9611-5c560b470a9c&pf_rd_r=91RZXG8D7BZZH2KBB604&qid=1718839806&refinements=p_89%3ALEGO&rnid=21074364031&s=toys&sr=1-10",
+        "availability_system_notification": true,
+        "availability_email_notification": false,
+        "price_change_system_notification": true,
+        "price_change_email_notification": false,
+        "email": "",
+        "price": 0.0,
+        "is_available": false,
+        "price_history": {
+            "2024-06-20 01:30:32": 0.0
         }
     }
 ]

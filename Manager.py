@@ -85,8 +85,11 @@ class Manager:
         for product in self.__products:
             is_available = product.is_available()
             price = product.get_price()
-
-            product.update_price_and_availability()
+            try:
+                product.update_price_and_availability()
+            except ValueError as e:
+                self.errors.append(f"{e} for product: {product.name}")
+                continue
 
             # Checking if the product has changed its availability
             if product.is_available() != is_available:
@@ -191,6 +194,9 @@ class Manager:
         product.price_change_email_notification = notification_to_set
         self.save_products_to_json()
 
+    def get_checking_frequency(self) -> int:
+        return self.__refresh_time
+
     def set_checking_frequency(self, new_frequency: int):
         if new_frequency >= 30:
             self.__refresh_time = new_frequency
@@ -198,10 +204,22 @@ class Manager:
             raise ValueError("Refresh time must be at least 30 seconds!")
         self.save_settings_to_json()
 
+    def get_email_for_notifications(self) -> str:
+        return self.__email_for_notifications
+
+    def get_email_password(self) -> str:
+        return self.__email_password
+
     def set_email_for_notifications(self, new_email: str, new_password: str):
         self.__email_for_notifications = new_email
         self.__email_password = new_password
         self.save_settings_to_json()
+
+    def get_smtp_server(self) -> str:
+        return self.__smtp_server
+
+    def get_smtp_port(self) -> int:
+        return self.__smtp_port
 
     def set_smtp_server(self, new_server: str, new_port: int):
         self.__smtp_server = new_server
